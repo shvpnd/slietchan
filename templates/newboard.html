@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Board</title>
+</head>
+<body>
+    <h1>Create a New Board</h1>
+    <form method="POST" action="/newboard">
+        <label for="board_name">Board Name:</label>
+        <input type="text" id="board_name" name="board_name" required/><br/>
+
+        <label for="board_description">Board Description:</label>
+        <textarea id="board_description" name="board_description" required></textarea><br/>
+
+        <input type="submit" value="Create Board!"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<title>Quickchan</title>
+<body>
+  <h1>{{board}} - {{board_desc}}</h1>
+  <form method = "POST" action="/b/{{board}}/post" enctype=multipart/form-data>
+    Name:<input type="text" name="name"/><br/>
+    Image:<input type=file name="image"/><br/>
+    Post:<textarea type="text" name="post_text"></textarea><br/>
+    <input type="submit" value="Post!"/>
+    </form>
+  <ul>
+  {% for post in posts %}
+  <div>
+    {% if post[1] %}
+    <a href="{{url_for('static',filename='uploads/'+post[1])}}"><img style="width:100px;" src="{{url_for('static',filename='uploads/'+post[1])}}" /></a>
+    {% endif %}
+    User:{{post[2]}}
+    Date:{{post[3]}}
+    <br></br>
+    Post:{{post[5]}}
+    <br></br>
+    <a href="/b/{{board}}/reply/{{post[0]}}">Reply</a>
+    <br></br>
+  </div>
+  {% endfor %}
+  </ul>
+
+</body>

@@ -1,33 +1,41 @@
 <!doctype html>
-<title>Quickchan</title>
+<title>slietchan - Reply</title>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+</head>
 <body>
-  <form method = "POST" action="/b/{{board}}/post_reply/{{post[0]}}" enctype=multipart/form-data>
-    Name:<input type="text" name="name"/><br/>
-    Image:<input type=file name="image"/><br/>
-    Post:<textarea type="text" name="post_text"></textarea><br/>
+  <h1>Reply to Post</h1>
+  <form method="POST" action="/b/{{ board }}/post_reply/{{ post.post_id }}" enctype="multipart/form-data">
+    Name: <input type="text" name="name"/><br/>
+    Image: <input type="file" name="image"/><br/>
+    Post: <textarea name="post_text"></textarea><br/>
     <input type="submit" value="Post!"/>
-    </form>
-  <ul>
-  <div>
-    {% if post[1] %}
-    <a href="{{url_for('static',filename='uploads/'+post[1])}}"><img style="width:100px;" src="{{url_for('static',filename='uploads/'+post[1])}}" /></a>
-    {% endif %}
-    User:{{post[2]}}
-    Date:{{post[3]}}
-    Post:{{post[5]}}
-  </div>
-  {% for reply in replies %}
-  <div>
-    Reply:
-    {% if reply[0] %}
-    <a href="{{url_for('static',filename='uploads/'+reply[0])}}"><img style="width:100px;" src="{{url_for('static',filename='uploads/'+reply[0])}}" /></a>
-    {% endif %}
-    User:{{reply[1]}}
-    Date:{{reply[2]}}
-    Post:{{reply[4]}}
-  </div>
-  {% endfor %}
+  </form>
   
+  <ul>
+    <div>
+      {% if post.image_file %}
+      <a href="{{ url_for('static', filename='uploads/' + post.image_file) }}">
+        <img style="width:100px;" src="{{ url_for('static', filename='uploads/' + post.image_file) }}" />
+      </a>
+      {% endif %}
+      User: {{ post.user }}<br>
+      Date: {{ post.date }}<br>
+      Post: {{ post.post_text }}<br>
+    </div>
+    
+    {% for reply in replies %}
+    <div>
+      Reply:
+      {% if reply.reply_image %}
+      <a href="{{ url_for('static', filename='uploads/' + reply.reply_image) }}">
+        <img style="width:100px;" src="{{ url_for('static', filename='uploads/' + reply.reply_image) }}" />
+      </a>
+      {% endif %}
+      User: {{ reply.user }}<br>
+      Date: {{ reply.date }}<br>
+      Post: {{ reply.post_text }}<br>
+    </div>
+    {% endfor %}
   </ul>
-
 </body>

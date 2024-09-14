@@ -1,14 +1,82 @@
-<!doctype html>
-<title>Quickchan</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slietchan</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+  <style>
+    .category-header {
+      font-weight: bold;
+      background-color: #f0f0f0; /* Light gray background for category headers */
+      padding: 10px;
+    }
+    .board-row {
+      background-color: #ffffff; /* White background for board rows */
+    }
+    .board-category {
+      text-align: center; /* Center align category headers */
+      padding: 10px;
+    }
+    .info-table {
+      width: 100%; /* Make the table take the full width */
+      margin-bottom: 20px; /* Add some space below the info table */
+    }
+    .info-table th, .info-table td {
+      padding: 10px; /* Add padding for table cells */
+      text-align: center; /* Center align text in the table */
+    }
+  </style>
+</head>
 <body>
+  <div class="main">
+    <h1 class="title">slietchan</h1>
+    <img src="{{ url_for('static', filename='longowalzi.png') }}" width="175px" alt="Longowalzi Image">
+    <nav class="nav">
+      <ul>
+        <li><a href="/newboard" class="navitem">create new board!</a></li>
+      </ul>
+    </nav>
+    
+    <!-- New Info Table -->
+    <table class="info-table" style="width: 80%;">
+      <thead>
+        <tr>
+          <th>What is slietchan?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>slietchan is a simple image-based bulletin board where anyone can post comments and share images. There are boards dedicated to a variety of topics, from Weebshit to videogames, music, and STEM. Users do not need to register an account before participating in the community. Feel free to click on a board below that interests you and jump right in!</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <ul>
-   <a href="/">QUCKCHAN - Create your own minimalist image board in a matter of seconds! </a></li>
-   <br></br>
-  <li><a href="/newboard">Create New Board! </a></li>
-  {% for board in boards %}
-  <li><a href="/b/{{board[1]}}">{{board[1]}} - {{board[2]}}</a></li>
-  {% endfor %}
-  </ul>
-
+    <!-- Existing Boards Table -->
+    <table>
+      <thead>
+        <tr>
+          {% for category in categories.keys() %}
+            <th class="board-category">{{ category }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for category, boards in categories.items() %}
+            <td>
+              <ul>
+                {% for board in boards %}
+                  <li>
+                    <a href="/b/{{ board['board_short_name'] }}" class="navitem">/{{ board['board_short_name'] }}/ - {{ board['board_description'] }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </td>
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
+</html>

@@ -1,28 +1,29 @@
 <!doctype html>
-<title>Quickchan</title>
+<title>slietchan</title>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+</head>
 <body>
-  <h1>{{board}} - {{board_desc}}</h1>
-  <form method = "POST" action="/b/{{board}}/post" enctype=multipart/form-data>
-    Name:<input type="text" name="name"/><br/>
-    Image:<input type=file name="image"/><br/>
-    Post:<textarea type="text" name="post_text"></textarea><br/>
+  <h1>{{ board }} - {{ board_desc }}</h1>
+  <form method="POST" action="/b/{{ board }}/post" enctype="multipart/form-data">
+    Name: <input type="text" name="name"/><br/>
+    Image: <input type="file" name="image"/><br/>
+    Post: <textarea name="post_text"></textarea><br/>
     <input type="submit" value="Post!"/>
-    </form>
+  </form>
   <ul>
-  {% for post in posts %}
-  <div>
-    {% if post[1] %}
-    <a href="{{url_for('static',filename='uploads/'+post[1])}}"><img style="width:100px;" src="{{url_for('static',filename='uploads/'+post[1])}}" /></a>
-    {% endif %}
-    User:{{post[2]}}
-    Date:{{post[3]}}
-    <br></br>
-    Post:{{post[5]}}
-    <br></br>
-    <a href="/b/{{board}}/reply/{{post[0]}}">Reply</a>
-    <br></br>
-  </div>
-  {% endfor %}
+    {% for post in posts %}
+    <div>
+      {% if post.image_file %}
+      <a href="{{ url_for('static', filename='uploads/' + post.image_file) }}">
+        <img style="width:100px;" src="{{ url_for('static', filename='uploads/' + post.image_file) }}" />
+      </a>
+      {% endif %}
+      User: {{ post.user }}<br>
+      Date: {{ post.date }}<br>
+      Post: {{ post.post_text }}<br>
+      <a href="/b/{{ board }}/reply/{{ post.post_id }}">Reply</a><br>
+    </div>
+    {% endfor %}
   </ul>
-
 </body>

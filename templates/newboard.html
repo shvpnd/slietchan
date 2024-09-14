@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Board</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
 </head>
 <body>
     <h1>Create a New Board</h1>
@@ -13,6 +14,15 @@
 
         <label for="board_description">Board Description:</label>
         <textarea id="board_description" name="board_description" required></textarea><br/>
+
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="Otaku Culture">Otaku Culture</option>
+            <option value="Interests">Interests</option>
+            <option value="Politics">Politics</option>
+            <option value="Academia">Academia</option>
+            <option value="Others">Others</option>
+        </select><br/>
 
         <input type="submit" value="Create Board!"/>
     </form>
